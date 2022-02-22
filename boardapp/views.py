@@ -30,4 +30,8 @@ def loginfunc(request):
 
 def listfunc(request):
     return render(request,'list.html',{})
+
+
+def boardfunc(request):
+    return render(request,'board.html',{})
     
