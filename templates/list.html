@@ -5,13 +5,14 @@
 {% block customcss %}
 <link href="{% static 'style.css' %}" rel="stylesheet">
 {% endblock customcss %}
+
 <body>
-{% block header %}
-<div class="alert alert-secondary" role="alert">
+  {% block header %}
+  <div class="alert alert-secondary" role="alert">
     <h3>レアテック掲示板</h3>
   </div>
-{% endblock header %}
+  {% endblock header %}
 
-{% block content %}
-{% endblock content %}
+  {% block content %}
+  {% endblock content %}
 </body>

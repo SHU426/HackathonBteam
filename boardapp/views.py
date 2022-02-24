@@ -13,7 +13,7 @@ def signupfunc(request):
             user = User.objects.create_user(username, '', password)
             return render(request,'signup.html',{'some':'Hello World'})
         except IntegrityError:
-             return render(request,'signup.html',{'error':' このユーザーはすでに登録されています。'})
+            return render(request,'signup.html',{'error':' このユーザーはすでに登録されています。'})
     return render(request,'signup.html',{'some':'Hello World'})
 
 def loginfunc(request):
