@@ -30,4 +30,7 @@ def loginfunc(request):
 
 def listfunc(request):
     return render(request,'list.html',{})
-    
+
+
+def msgfunc(request):
+    return render(request,'msg.html',{})

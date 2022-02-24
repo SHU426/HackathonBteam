@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+<link href="{% static 'ryu_style.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
+{% block content %}
+
+<body>
+
+    <div class="container p2 mt-2 position-relative clearfix">
+        <div class="sticky-top msg-thread-title-wrap shadow bg-white rounded">
+            <span>これについて話そう！！</span>
+            <h1 class="p-3 mb-5 msg-thread-title">Voxyがフルモデルチェンジしたらしい</h1>
+        </div>
+        <div class="js-insert-msg bg-light p-1 u-height u-overflow-y">
+
+        </div>
+
+        <div class="msg-form-wrap u-mg_l bg-">
+            <span class="error js-toggle-error">入力が空です</span>
+            <form action="" method="post" class="">
+                <input type="text" name="msg-text" id="" placeholder="コメントを入力して下さい。"
+                    class="js-get-value w-100 p-1 u-mb_s">
+                <input type="submit" value="送信"
+                    class="btn btn-outline-primary btn-block u-pd_m border-primary rounded-poll  js-btn-event">
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script>
+        //nameが空の時は要素数＋1した値をつける,上記だとlet tailnum=要素数2+1=3, ()->003      
+        //1.送信ボタンをclick->
+        $('.js-btn-event').on('click', function (e) {
+            e.preventDefault(); //submitがキャンセルされる。
+            //random関数
+            function getRandomArbitrary(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+            //ゼロ埋め
+            function zeroPadding(NUM, LEN) {
+                return (Array(LEN).join('0') + NUM).slice(-LEN);
+            }
+
+            let username = "名無し";
+
+            let img_path = [
+                "{%static 'img/icon_png/sns-icon-man_1.png'%}",
+                "{%static 'img/icon_png/sns-icon-man_2.png'%}",
+                "{%static 'img/icon_png/sns-icon-man_3.png'%}",
+                "{%static 'img/icon_png/sns-icon-woman_1.png'%}",
+                "{%static 'img/icon_png/sns-icon-woman_2.png'%}",
+                "{%static 'img/icon_png/sns-icon-woman_3.png'%}"
+            ];
+
+            let ranNum = Math.floor(getRandomArbitrary(1, img_path.length));
+            console.log(ranNum);
+            let setPath = img_path[ranNum];
+            console.log(setPath);
+            // inputの値を取得し、中身を空にする
+            let text = $('.js-get-value').val();
+            $('.js-get-value').val('');
+
+            // 入力が空の場合
+            if (!text) {
+                // エラーを表示
+                $('.js-toggle-error').show();
+                return;
+            }
+
+            // エラーを隠す（表示されているかもしれないので）
+            $('.js-toggle-error').hide();
+
+            // listItemのhtmlを生成してタスクに追加する
+            let listItem = ""; //初期化
+            listItem = '<div class="msg-wrap d-flex p-1 border mb-2 js-msg-wrap">' +
+                '<div class="p1 msg-icon-wrap border u-flex-shrink">' +
+                '<span class="db-get-username d-block text-center js-get-name">' + username + '</span>' +
+                '<div class="icon-img js-set-img_path"><img src="" alt="icon_img"class = "img-fluid js-target-img_src" ></div> </div>' +
+                '<div class="msg-box-wrap border w-100">' +
+                '<span class="db-get-date d-block text-center">2022-02-01-0:00</span>' +
+                '<p class="text-center msg-comment js-set-value">' + text + '</p>' +
+                '<div class="edit-icon-wrap">' +
+                '<i class="fa fa-trash icon-trash icon-trash-color js-click-trash" aria-hidden="true"></i>' +
+                '<i class="fa fa-pencil icon-pencil icon-pencil-color" aria-hidden="true"></i></div>';
+            // let listItem = '<li class="list__item js-todo_list-item" data-text="' + text + '">' +
+            //     '<i class="fa fa-square-o icon-check js-click-done" aria-hidden="true"></i>' +
+
+            //     '<span class="js-todo_list-text">' + text + '</span>' +
+            //     '<input type="text" class="editText js-todo_list-editForm" value="' + text + '">' +
+            //     '<i class="fa fa-trash icon-trash js-click-trash" aria-hidden="true"></i>' +
+            //     '</li>';
+
+
+
+            $('.js-insert-msg').append(listItem);
+            $('.js-set-img_path').last().children('img').attr('src', setPath);
+            let num = $('.js-get-name').length
+            username = username + zeroPadding(num, 3)
+            $('.js-get-name').last().text(username)
+            username = '名無し'; //初期化
+
+        });
+
+        //ゴミ箱を押したら要素を消す。
+        $(document).on('click', '.js-click-trash', function () {
+
+            $(this).closest('.js-msg-wrap').fadeOut('slow', function () {
+                this.remove();
+            });
+
+        });
+    </script>
+</body>
+{% endblock content %}
