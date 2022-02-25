@@ -1,5 +1,7 @@
+from ast import Delete
 from dataclasses import field
 from tempfile import template
+from winreg import DeleteValue
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
@@ -8,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 
 from .models import SredModel
-from django.views.generic import CreateView
+from django.views.generic import CreateView,DeleteView
 # Create your views here.
 def signupfunc(request):
     if request.method == "POST":
@@ -44,6 +46,12 @@ def boardfunc(request):
 
 class BoardCreate(CreateView):
     template_name = 'create.html'
+    model = SredModel
+    fields = ('title','memo')
+    success_url = reverse_lazy('sred')
+
+class BoardDelete(DeleteView):
+    template_name = 'delete.html'
     model = SredModel
     fields = ('title','memo')
     success_url = reverse_lazy('sred')

@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
+<div class="alert alert-secondary position-absolute top-50 start-50 translate-middle text-end" role="alert">
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <p>タイトル：<input type="text" name="title"></p>
-    <p>メモ：<input type="text" name="memo"></p>
-    <input type="submit" value="投稿する">
+    <p>title：<input type="text" name="title"></p>
+    <p>memo：<input type="text" name="memo"></p>
+    <input type="submit" value="create" class="btn btn-success">
 </form>
+</div>
+</div>
 {% endblock content %}
