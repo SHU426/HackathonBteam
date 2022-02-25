@@ -7,6 +7,7 @@
     {% csrf_token %}
     <p>title：<input type="text" name="title"></p>
     <p>memo：<input type="text" name="memo"></p>
+    <a href="{% url 'sred' %}" type="button" class="btn btn-light">back</a>
     <input type="submit" value="create" class="btn btn-success">
 </form>
 </div>
