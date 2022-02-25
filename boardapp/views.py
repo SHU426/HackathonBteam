@@ -1,9 +1,14 @@
+from dataclasses import field
+from tempfile import template
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.db import IntegrityError 
 from django.contrib.auth import authenticate, login
+from django.urls import reverse_lazy
 
+from .models import SredModel
+from django.views.generic import CreateView
 # Create your views here.
 def signupfunc(request):
     if request.method == "POST":
@@ -29,9 +34,17 @@ def loginfunc(request):
     return render(request,'login.html',{'context':'get method'})
 
 def sredfunc(request):
-    return render(request,'sred.html',{})
+    object_list = SredModel.objects.all()
+    return render(request,'sred.html',{'object_list':object_list})
 
 
 def boardfunc(request):
     return render(request,'board.html',{})
+
+
+class BoardCreate(CreateView):
+    template_name = 'create.html'
+    model = SredModel
+    fields = ('title','memo')
+    success_url = reverse_lazy('sred')
     
