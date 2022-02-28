@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.models import User
 from django.db import IntegrityError 
 from django.contrib.auth import authenticate, login
+from .models import Board
 
 # Create your views here.
 def signupfunc(request):
@@ -31,6 +32,13 @@ def loginfunc(request):
 def listfunc(request):
     return render(request,'list.html',{})
 
+def index(request):
+    latest_board_list = Board.objects.order_by('create_at')
+    context = {
+        'latest_board_list':latest_board_list,
+    }
+    return render(request,'boardapp/index.html',context)
 
-def msgfunc(request):
-    return render(request,'msg.html',{})
+def detail(request,board_id):
+    board = get_object_or_404(Board,pk=board_id)
+    return render(request,'boardapp/msg.html',{'board':board})
