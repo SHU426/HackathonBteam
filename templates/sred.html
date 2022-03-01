@@ -23,7 +23,7 @@
 <div class="alert alert-secondary" role="alert">
   <div class="col">
   <p>タイトル:{{item.title}}</p>
-  <p>詳細:{{item.memo}}</p>
+  <p>詳細:{{item.memo}}</p>  
   <div class="text-end">
   <a href="{% url 'delete' item.pk %}" type="button" class="btn btn-outline-danger">delete</a>
   </div>
@@ -31,6 +31,7 @@
 
 </div>
 {% endfor %}
+<a href="{% url 'logout' %}" type="button" class="btn btn-outline-danger">logout</a>
 </div>
 </div>
 
