@@ -19,10 +19,11 @@ def signupfunc(request):
         password = request.POST['password']
         try:
             user = User.objects.create_user(username, '', password)
-            return render(request,'signup.html',{'some':'Hello World'})
+            login(request, user)
+            return redirect('sred')
         except IntegrityError:
-             return render(request,'signup.html',{'error':' このユーザーはすでに登録されています。'})
-    return render(request,'signup.html',{'some':'Hello World'})
+            return render(request,'signup.html',{'error':' このユーザーはすでに登録されています。'})
+    return render(request,'signup.html')
 
 def loginfunc(request):
     if request.method == "POST":
@@ -33,8 +34,8 @@ def loginfunc(request):
             login(request, user)
             return redirect('sred')
         else:
-            return render(request,'login.html',{'context':'not logged in'})
-    return render(request,'login.html',{'context':'get method'})
+            return render(request,'login.html',{'context':'ユーザーネーム又はパスワードが違います'})
+    return render(request,'login.html')
 
 @login_required
 def sredfunc(request):
@@ -49,13 +50,13 @@ def boardfunc(request):
 class BoardCreate(CreateView):
     template_name = 'create.html'
     model = SredModel
-    fields = ('title','memo')
+    fields = ('title','memo','author')
     success_url = reverse_lazy('sred')
 
 class BoardDelete(DeleteView):
     template_name = 'delete.html'
     model = SredModel
-    fields = ('title','memo')
+    fields = ('title','memo','author')
     success_url = reverse_lazy('sred')
 
 def logoutfunc(request):

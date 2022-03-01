@@ -12,6 +12,7 @@
     <h3 class="alert-heading">レアテック掲示板(shu)</h3>
     <div class="text-end">
     <a href="{% url 'create' %}" type="button" class="btn btn-success">create</a>
+    <a href="{% url 'logout' %}" type="button" class="btn btn-outline-dark">logout</a>
   </div>
   </div>
 {% endblock header %}
@@ -22,18 +23,19 @@
   {% for item in object_list %}
 <div class="alert alert-secondary" role="alert">
   <div class="col">
-  <p>タイトル:{{item.title}}</p>
-  <p>詳細:{{item.memo}}</p>  
+  <p>タイトル:{{ item.title }}</p>
+  <p>詳細:{{ item.memo }}</p>  
+  <p>投稿者:{{ item.author }}</p> 
   <div class="text-end">
-  <a href="{% url 'delete' item.pk %}" type="button" class="btn btn-outline-danger">delete</a>
+  <a href="{% url 'delete' item.pk %}" type="button" class="btn btn-danger">delete</a>
   </div>
   </div>
 
 </div>
 {% endfor %}
-<a href="{% url 'logout' %}" type="button" class="btn btn-outline-danger">logout</a>
 </div>
 </div>
+
 
 
 
