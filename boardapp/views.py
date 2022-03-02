@@ -34,7 +34,7 @@ def loginfunc(request):
             login(request, user)
             return redirect('sred')
         else:
-            return render(request,'login.html',{'context':'ユーザーネーム又はパスワードが違います'})
+            return render(request,'login.html',{'context':'ユーザーネーム又はパスワードを正しく入力してください'})
     return render(request,'login.html')
 
 @login_required
