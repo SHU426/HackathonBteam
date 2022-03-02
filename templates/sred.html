@@ -26,9 +26,12 @@
   <p>タイトル:{{ item.title }}</p>
   <p>詳細:{{ item.memo }}</p>  
   <p>投稿者:{{ item.author }}</p> 
+
+  {% if item.author == user.username %}
   <div class="text-end">
   <a href="{% url 'delete' item.pk %}" type="button" class="btn btn-danger">delete</a>
   </div>
+  {% endif %}
   </div>
 
 </div>
