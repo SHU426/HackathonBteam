@@ -5,6 +5,7 @@
 from gc import get_objects
 import http
 from os import ctermid
+from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
@@ -73,34 +74,33 @@ def logoutfunc(request):
 
 class MsgCreate(CreateView):
     model = Sred_msg_post
+    # user = User
     template_name = 'msg_create.html'
-    form_class = MsgForm
+    fields = ('sred','msg_detail','msg_author')
+    
+    def get_form(self):
+        user = self.request.user
+        pk = self.kwargs.get('pk')
+        print(pk)
+        form = super(MsgCreate, self).get_form()
+        form.fields['sred'].label = '送信先:'
+        form.initial['sred'] = self.model.objects.filter(sred_id=pk)
+        form.fields['msg_detail'].label = 'Message'
+        form.initial['msg_detail'] = ''
+        form.fields['msg_author'].label = 'メッセージ作成者'
+        form.initial['msg_author'] = user
+        return form
     def get_success_url(self):
         return reverse('detail',kwargs={'pk':self.object.sred.pk})
-    # data = model.objects.get(pk=pk)
-    # fields = ('sred','msg_detail','msg_author')
-    # def get_context_data(self, **kwargs):
-    #     print(self.kwargs.get('pk'))
     
-    # def get_context_data(request,self,**kwargs):
-    #     if request.method == 'GET':
-    #         get_pk = self.kwargs.get('pk')
-
-    #         sred_title = Sred_msg_post.objects. filter(sred__pk = get_pk)
-    #         form_initial = MsgForm(initial={
-    #             'sred':sred_title,
-    #             'msg_author':User.username,
-    #         })
-    #         context = {'form': form_initial}
-    #         return render(request,'msg_create.html',context)
-    #     else:
-    #         return HttpResponse('未実装')
-            
-        
     
-    # success_url = reverse_lazy('sred')
-    
-
+class MsgDelete(DeleteView):
+    model = Sred_msg_post
+    template_name ='msg_delete.html'
+    fields = ('sred','msg_detail','msg_author')
+   
+    def get_success_url(self):
+        return reverse('detail',kwargs={'pk':self.object.sred.pk})
 class MsgDetailfunc(DetailView):
     template_name = 'msg.html'
     model = SredModel

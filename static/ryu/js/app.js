@@ -24,3 +24,9 @@ $('.js-btn-event').on('click', function (e) {
     let text = $('.js-get-value').val();
     $('.js-get-value').val('');
 })
+
+//ゴミ箱アイコンclickイベント
+// $(".js-click-trash").click(function () {
+//     window.location.href = "{% url 'msg_delete' sredmodel.id %}";
+
+// });
