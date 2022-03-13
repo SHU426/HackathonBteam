@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<link href="{% static 'ryu/css/style.css' %}" rel="stylesheet">
+{% endblock customcss %}
+{% block header %}
+<div class="alert alert-secondary" role="alert">
+    <h3 class="alert-heading">レアテック掲示板({{user.username}}でログイン中)</h3>
+    <div class="text-center msg-title-wrap">
+        <span>これについて話そう！！</span>
+        <h1 class="p-3 mb-5 msg-thread-title">{{sredmodel.title}}</h1>
+        <p>掲示板作成者:{{sredmodel.author}}</p>
+        <p>詳細:{{sredmodel.memo}}</p>
+    </div>
+    <div class="text-end">
+        <a href=" {% url 'sred' %}" type="button" class="btn btn-success">掲示板一覧に戻る</a>
+        <a href="{% url 'logout' %}" type="button" class="btn btn-outline-dark">logout</a>
+    </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="u-height-500 u-overflow-y">
+        {% for msg in sredmodel.sred_msg_post_set.all%}
+        <div class="msg-wrap d-flex p-1 border mb-2 js-msg-wrap">
+            <div class="p1 msg-icon-wrap border u-flex-shrink">
+                <span class="db-get-username d-block text-center js-get-name"> {{msg.msg_author}} </span>
+                <div class="icon-img js-set-img_path"><img src="{% static 'ryu/images/sns-icon-man_1.png' %}"
+                        alt="icon_img" class="img-fluid js-target-img_src">
+                </div>
+            </div>
+            <div class="msg-box-wrap border w-100">
+                <span class="db-get-date d-block text-center">{{msg.created_at}}</span>
+                <p class="text-center msg-comment js-set-value"> {{msg.msg_detail}} </p>
+                <div class="edit-icon-wrap">
+                    <i class="fa fa-trash-can icon-trash icon-trash-color js-click-trash" aria-hidden="true"></i>
+                    <!-- 編集機能は今回は見送り<i class="fa fa-pencil icon-pencil icon-pencil-color" aria-hidden="true"></i>-->
+                    <i class="fa fa-pencil icon-pencil icon-pencil-color" aria-hidden="true"></i>
+                </div>
+
+            </div>
+
+            <!-- <div class="js-insert-msg bg-light p-1 u-height u-overflow-y">
+
+        </div> -->
+        </div>
+
+        {% endfor %}
+    </div>
+    <div class="text-end">
+        <a href="{% url 'msgcreate' sredmodel.id %}" type="button" class="btn btn-success">メッセージ作成</a>
+    </div>
+</div>
+<!-- <div class="form-group">
+            <label for="exampleFormControlTextarea1">コメントを入力してください</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary float-end" data-toggle="modal" data-target="#exampleModalCenter">
+            メッセージ送信
+        </button> -->
+
+
+{% endblock content %}
