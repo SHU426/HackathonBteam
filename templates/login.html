@@ -16,20 +16,20 @@
   <main class="form-signin">
     <div class="text-danger">{{ context }}</div>
     <form method="POST">{% csrf_token %}
-      <h1 class="h3 mb-3 fw-normal">Please login</h1>
+      <h1 class="h3 mb-3 fw-normal">ログイン</h1>
 
       <div class="form-floating">
         <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
-        <label for="floatingInput">Username</label>
+        <label for="floatingInput">ユーザー名</label>
       </div>
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">パスワード</label>
       </div>
 
-      <button class="w-100 btn btn-lg btn-primary" type="submit">login</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">ログイン</button>
       <p>新規登録の方は<a href="{% url 'signup' %}" type="button" class="">こちら</a></p>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
     </form>
   </main>
 

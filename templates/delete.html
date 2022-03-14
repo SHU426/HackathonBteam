@@ -6,9 +6,9 @@
 
 <form method="post" enctype="multipart/form-data">
     <p>本当に削除しますか？</p>
-    <a href="{% url 'sred' %}" type="button" class="btn btn-light">back</a>
+    <a href="{% url 'sred' %}" type="button" class="btn btn-light">戻る</a>
     {% csrf_token %}
-    <input type="submit" value="delete" class="btn btn-danger">
+    <input type="submit" value="掲示板を削除" class="btn btn-danger">
 </form>
     </div>
 </div>
