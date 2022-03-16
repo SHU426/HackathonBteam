@@ -1,1 +1,1 @@
-"web: gunicorn boardproject.wsgi --log-fileb-
+"web: gunicorn boardproject.wsgi 
