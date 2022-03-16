@@ -1,1 +1,1 @@
-"web: gunicorn boardproject.wsgi 
+web: gunicorn boardproject.wsgi
